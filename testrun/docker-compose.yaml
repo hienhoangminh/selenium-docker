@@ -1,0 +1,68 @@
+version: "3"
+services:
+  hub:
+    image: selenium/hub:latest
+    ports:
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:latest
+    shm_size: '2g'
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  firefox:
+    image: selenium/node-firefox:latest
+    shm_size: '2g'
+    depends_on:
+      - hub
+    environment:
+      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  search-module-1:
+    image: hhoang88/selenium-docker
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=hub
+      - SUITE=search-module.xml
+    volumes:
+      - ./search-result-chrome:/usr/share/selenium-docker/test-output
+  search-module-2:
+    image: hhoang88/selenium-docker
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=firefox
+      - HUB_HOST=hub
+      - SUITE=search-module.xml
+    volumes:
+      - ./search-result-firefox:/usr/share/selenium-docker/test-output
+  book-flight-module-1:
+    image: hhoang88/selenium-docker
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=chrome
+      - HUB_HOST=hub
+      - SUITE=book-flight-module.xml
+    volumes:
+      - ./flight-result-chrome:/usr/share/selenium-docker/test-output
+  book-flight-module-2:
+    image: hhoang88/selenium-docker
+    depends_on:
+      - chrome
+      - firefox
+    environment:
+      - BROWSER=firefox
+      - HUB_HOST=hub
+      - SUITE=book-flight-module.xml
+    volumes:
+      - ./flight-result-firefox:/usr/share/selenium-docker/test-output

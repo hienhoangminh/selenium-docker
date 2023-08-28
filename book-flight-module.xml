@@ -1,0 +1,57 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="book-flight" parallel="tests">
+    <parameter name="firstName" value="Hien"/>
+    <parameter name="lastName" value="Hoang"/>
+    <parameter name="userName" value="hhoang88"/>
+    <parameter name="password" value="123456"/>
+    <test name="book-flight-paris-frankfurt">
+        <parameter name="noOfPassengers" value="2"/>
+        <parameter name="departurePort" value="Paris"/>
+        <parameter name="arrivalPort" value="Frankfurt"/>
+        <parameter name="serviceClass" value="Business"/>
+        <parameter name="expectedPrice" value="$1169 USD"/>
+        <classes>
+            <class name="com.rocktester.newtours.tests.BookFlightTest"/>
+        </classes>
+    </test>
+    <test name="book-flight-london-seattle">
+        <parameter name="noOfPassengers" value="1"/>
+        <parameter name="departurePort" value="London"/>
+        <parameter name="arrivalPort" value="Seattle"/>
+        <parameter name="serviceClass" value="First"/>
+        <parameter name="expectedPrice" value="$584 USD"/>
+        <classes>
+            <class name="com.rocktester.newtours.tests.BookFlightTest"/>
+        </classes>
+    </test>
+    <test name="book-flight-portland-sydney">
+        <parameter name="noOfPassengers" value="3"/>
+        <parameter name="departurePort" value="Portland"/>
+        <parameter name="arrivalPort" value="Sydney"/>
+        <parameter name="serviceClass" value="Coach"/>
+        <parameter name="expectedPrice" value="$1753 USD"/>
+        <classes>
+            <class name="com.rocktester.newtours.tests.BookFlightTest"/>
+        </classes>
+    </test>
+    <test name="book-flight-zurich-new-york">
+        <parameter name="noOfPassengers" value="4"/>
+        <parameter name="departurePort" value="Zurich"/>
+        <parameter name="arrivalPort" value="New York"/>
+        <parameter name="serviceClass" value="Business"/>
+        <parameter name="expectedPrice" value="$2338 USD"/>
+        <classes>
+            <class name="com.rocktester.newtours.tests.BookFlightTest"/>
+        </classes>
+    </test>
+    <test name="book-flight-san-francisco-acapulco">
+        <parameter name="noOfPassengers" value="1"/>
+        <parameter name="departurePort" value="San Francisco"/>
+        <parameter name="arrivalPort" value="Acapulco"/>
+        <parameter name="serviceClass" value="Coach"/>
+        <parameter name="expectedPrice" value="$584 USD"/>
+        <classes>
+            <class name="com.rocktester.newtours.tests.BookFlightTest"/>
+        </classes>
+    </test>
+</suite>
