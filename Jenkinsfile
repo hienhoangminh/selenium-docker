@@ -1,31 +1,22 @@
 pipeline {
-    agent none
+    agent any
     stages {
         stage('Build Jar') {
-            agent {
-                docker {
-                    image 'maven:3-alpine'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh "mvn clean package -DskipTests"
             }
         }
         stage('Build Image') {
             steps {
-                script {
-                	app = docker.build("hhoang88/selenium-docker")
-                }
+                sh "docker build -t='hhoang88/selenium-docker' ."
             }
         }
         stage('Push Image') {
             steps {
-                script {
-			        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-			        	app.push("${BUILD_NUMBER}")
-			            app.push("latest")
-			        }
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                   sh "docker login --username=${user} --password=${pass}"
+                   sh "docker push hhoang88/selenium-docker:latest"
+			       }
                 }
             }
         }
