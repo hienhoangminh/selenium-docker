@@ -18,7 +18,6 @@ pipeline {
                    sh "docker push hhoang88/selenium-docker:latest"
 			       }
                 }
-            }
         }
     }
 }
